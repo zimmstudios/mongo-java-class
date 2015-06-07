@@ -3,11 +3,11 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>com.zimmstudios.mongo</groupId>
-  <artifactId>mongo-java-class</artifactId>
+  <artifactId>week2</artifactId>
   <version>1.0.0-SNAPSHOT</version>
   <packaging>pom</packaging>
 
-  <name>Mongo Java Class</name>
+  <name>Week 2</name>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -15,8 +15,7 @@
   </properties>
 
   <modules>
-    <module>week1</module>
-    <module>week2</module>
+    <module>week2-lectures</module>
   </modules>
 
 </project>
