@@ -20,6 +20,7 @@ import com.mongodb.ErrorCategory;
 import com.mongodb.MongoWriteException;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import static com.mongodb.client.model.Filters.eq;
 import org.bson.Document;
 import sun.misc.BASE64Encoder;
 
@@ -29,7 +30,7 @@ import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.util.Random;
 
-import static com.mongodb.client.model.Filters.eq;
+import org.bson.conversions.Bson;
 
 public class UserDAO {
     private final MongoCollection<Document> usersCollection;
@@ -43,20 +44,23 @@ public class UserDAO {
     public boolean addUser(String username, String password, String email) {
 
         String passwordHash = makePasswordHash(password, Integer.toString(random.nextInt()));
-
-        // XXX WORK HERE
+        
         // create an object suitable for insertion into the user collection
         // be sure to add username and hashed password to the document. problem instructions
         // will tell you the schema that the documents must follow.
-
+        // e.g. { "_id" : "erlichson", "password" : "VH9IFu+/vUNSKTzZsFZEOsK1,-1924261330" }
+        Document userDocument = new Document()
+                .append("_id", username)
+                .append("password", passwordHash);
+        
         if (email != null && !email.equals("")) {
-            // XXX WORK HERE
             // if there is an email address specified, add it to the document too.
+            userDocument.append("email", email);
         }
 
         try {
-            // XXX WORK HERE
             // insert the document into the user collection here
+            usersCollection.insertOne(userDocument);
             return true;
         } catch (MongoWriteException e) {
             if (e.getError().getCategory().equals(ErrorCategory.DUPLICATE_KEY)) {
@@ -68,10 +72,11 @@ public class UserDAO {
     }
 
     public Document validateLogin(String username, String password) {
-        Document user = null;
-
-        // XXX look in the user collection for a user that has this username
+        
+        // look in the user collection for a user that has this username
         // assign the result to the user variable.
+        Bson filter = eq("_id", username);
+        Document user = usersCollection.find(filter).first();
 
         if (user == null) {
             System.out.println("User not in database");
