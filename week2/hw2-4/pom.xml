@@ -3,11 +3,11 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>com.zimmstudios.mongo</groupId>
-  <artifactId>week2</artifactId>
+  <artifactId>hw2-4</artifactId>
   <version>1.0.0-SNAPSHOT</version>
   <packaging>pom</packaging>
 
-  <name>Week 2</name>
+  <name>Homework Assignment 2.4</name>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -15,9 +15,7 @@
   </properties>
 
   <modules>
-    <module>week2-lectures</module>
-    <module>hw2-3</module>
-    <module>hw2-4</module>
+    <module>create_blog_authors</module>
   </modules>
 
 </project>
