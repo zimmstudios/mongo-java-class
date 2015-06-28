@@ -1,0 +1,24 @@
+use test
+
+// Basic steps
+//   Project - pass necessary fields through and create new field for first_char
+//   Match - filter out cities that don't start with a digit
+//   Group - make _id null and sum all the pop fields together
+
+db.zips.aggregate([
+    { "$project" :
+        {
+            "first_char" : { "$substr" : ["$city", 0, 1] },
+            "city" : 1,
+            "pop" : 1
+        }
+    },
+    { "$match" : { "first_char" : /^\d$/ } },
+    { "$group" :
+        {
+            "_id" : null,
+            "sum" : { "$sum" : "$pop" }
+        }
+    }
+])
+
