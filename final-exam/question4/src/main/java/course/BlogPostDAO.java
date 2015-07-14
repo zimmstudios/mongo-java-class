@@ -17,6 +17,7 @@
 
 package course;
 
+import com.mongodb.BasicDBList;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.MongoCollection;
 
@@ -28,6 +29,7 @@ import java.util.List;
 
 import static com.mongodb.client.model.Filters.eq;
 import static com.mongodb.client.model.Sorts.descending;
+import com.mongodb.client.model.UpdateOptions;
 
 public class BlogPostDAO {
     private final MongoCollection<Document> postsCollection;
@@ -102,5 +104,11 @@ public class BlogPostDAO {
         // on the post identified by `permalink`.
         //
         //
+        String toUpdate = "comments" + "." + ordinal + ".num_likes";
+        
+        postsCollection.updateOne(
+                eq("permalink", permalink),
+                new Document("$inc", new Document(toUpdate, 1))
+                );
     }
 }
