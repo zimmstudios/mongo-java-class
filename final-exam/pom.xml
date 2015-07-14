@@ -15,6 +15,7 @@
   </properties>
 
   <modules>
+    <module>question4</module>
     <module>question8</module>
   </modules>
 
